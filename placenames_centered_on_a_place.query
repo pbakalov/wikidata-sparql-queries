@@ -1,0 +1,27 @@
+#places with name ending in ova or ovo within 100km of Sofia
+
+#for a query that returns places within one (or more) countries see: http://stackoverflow.com/questions/41208568/or-in-sparql-query
+ 
+#defaultView:Map
+SELECT ?place ?placeLabel ?location
+WHERE
+{
+  # Berlin coordinates
+  wd:Q472 wdt:P625 ?SofiaLoc . 
+  SERVICE wikibase:around { 
+      ?place wdt:P625 ?location . 
+      bd:serviceParam wikibase:center ?SofiaLoc . 
+      bd:serviceParam wikibase:radius "100" . 
+  } 
+  # Is an airport
+  ?place wdt:P31/wdt:P279* wd:Q486972 ;
+              rdfs:label ?itemLabel;
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" . 
+  }
+    
+         FILTER (lang(?itemLabel) = "en") . 
+         FILTER regex (?itemLabel, "(ovo|ova)$").
+
+}

@@ -1,0 +1,10 @@
+#List of airports & international airports in Bulgaria
+#defaultView:Map
+SELECT DISTINCT ?airport ?coor ?range
+WHERE
+{
+  VALUES ?airport_types {wd:Q644371 wd:Q1248784} #new variable that includes airports AND international airpots 
+  ?airport wdt:P31 ?airport_types;
+  ?range wd:Q219;
+  wdt:P625 ?coor.
+}

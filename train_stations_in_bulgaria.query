@@ -1,0 +1,9 @@
+#List of train stations in Bulgaria
+#defaultView:Map
+SELECT DISTINCT ?station ?coor ?range
+WHERE
+{
+  ?station wdt:P31 wd:Q55488 ;
+  ?range wd:Q219;
+  wdt:P625 ?coor.
+}
