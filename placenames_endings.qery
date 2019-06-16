@@ -1,0 +1,22 @@
+#Places with names ending in "ovo" in selected countries
+#added before 2016-10
+
+#defaultView:Map
+SELECT ?place ?placeLabel ?location WHERE {
+#     VALUES ?country { wd:Q219 wd:Q221} #countries BG 219, MK 221
+    ?place     wdt:P31/wdt:P279* wd:Q486972 ; #is instance of or sublass of human settlement 
+#                wdt:P17 wd:Q219;                               # country: Bulgaria
+#                wdt:P17 ?country;                               # country: as defined         
+               wdt:P625 ?location;
+               rdfs:label ?placeLabel;
+               
+    {?place wdt:P17 wd:Q219} 
+    UNION 
+    {?place wdt:P17 wd:Q221}
+    UNION
+    {?place wdt:P17 wd:Q403}
+    
+  FILTER (lang(?placeLabel) = "en"). 
+  FILTER regex (?placeLabel, "(ovo)$").
+
+}
