@@ -1,0 +1,5 @@
+SELECT DISTINCT ?exchanges ?exchangesLabel WHERE {
+  ?exchanges wdt:P31 wd:Q11691.
+  ?exchanges wdt:P17 wd:Q30.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[Auto_Language],en". } 
+}
