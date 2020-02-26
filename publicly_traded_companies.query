@@ -1,0 +1,10 @@
+SELECT DISTINCT ?company ?exchange ?exchangeLabel ?companyLabel
+WHERE
+{
+  VALUES ?allowed_exchanges {wd:Q82059 wd:Q13677} #NASDAQ,NYSE
+  ?company wdt:P31 wd:Q891723.
+  ?company wdt:P414 ?allowed_exchanges;
+           wdt:P414 ?exchange .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[Auto_Language],en". } 
+  FILTER(?exchange in (wd:Q82059,wd:Q13677)) .
+}
