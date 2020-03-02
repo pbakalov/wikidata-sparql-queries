@@ -1,5 +1,10 @@
-SELECT DISTINCT ?exchanges ?exchangesLabel WHERE {
+SELECT DISTINCT ?exchanges ?exchangesLabel ?article WHERE {
   ?exchanges wdt:P31 wd:Q11691.
   ?exchanges wdt:P17 wd:Q30.
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[Auto_Language],en". }  # see https://www.wikidata.org/wiki/Wikidata:SPARQL_tutorial
+  OPTIONAL {
+    ?article schema:about ?exchanges .   
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  }
 }
