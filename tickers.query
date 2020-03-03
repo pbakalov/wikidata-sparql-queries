@@ -4,12 +4,16 @@
 #see also:
 #https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format#Prefixes_used
 
-SELECT DISTINCT ?stock_exchange_statement ?id ?ticker ?idLabel 
+SELECT DISTINCT ?stock_exchange_statement ?id ?ticker ?idLabel ?article 
 WHERE {
   VALUES ?allowed_exchanges {wd:Q82059 wd:Q13677}
   ?id p:P414 ?stock_exchange_statement . #p: links entity to statement 
-  ?id wdt:P414 ?allowed_exchanges .
   ?stock_exchange_statement ps:P414 ?allowed_exchanges .  #ps: links value to statement 
   ?stock_exchange_statement pq:P249 ?ticker .  #pq: links qualifier to statement node 
+  OPTIONAL {
+    ?article schema:about ?id .   
+    ?article schema:inLanguage "en" .
+    ?article schema:isPartOf <https://en.wikipedia.org/> .
+  }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[Auto_Language],en". } 
 }
